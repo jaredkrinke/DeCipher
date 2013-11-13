@@ -7,14 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    IsTabStop="True"
+    TabNavigation="Once"
+    Tapped="UserControl_Tapped"
+    GotFocus="UserControl_GotFocus"
+    LostFocus="UserControl_LostFocus"
+    KeyDown="UserControl_KeyDown">
     
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <TextBlock x:Name="cryptogramCharacter" Grid.Row="0" Text="M" FontSize="24" FontFamily="Consolas"/>
-        <TextBox x:Name="solutionCharacter" Grid.Row="1" Text=" " FontSize="24" FontFamily="Consolas"/>
+        <TextBlock x:Name="solutionCharacter" Grid.Row="1" Text=" " FontSize="24" FontFamily="Consolas"/>
     </Grid>
 </UserControl>
