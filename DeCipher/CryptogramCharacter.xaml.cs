@@ -13,17 +13,30 @@ namespace DeCipher
 {
     public sealed partial class CryptogramCharacter : UserControl
     {
-        public static readonly DependencyProperty SolutionCharacterProperty = DependencyProperty.Register("SolutionCharacter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(' '));
+        public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
+        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(' '));
 
-        public char SolutionCharacter
+        public char CryptogramLetter
         {
             get
             {
-                return (char)this.GetValue(CryptogramCharacter.SolutionCharacterProperty);
+                return (char)this.GetValue(CryptogramCharacter.CryptogramLetterProperty);
             }
             set
             {
-                this.SetValue(CryptogramCharacter.SolutionCharacterProperty, value);
+                this.SetValue(CryptogramCharacter.CryptogramLetterProperty, value);
+            }
+        }
+
+        public char SolutionLetter
+        {
+            get
+            {
+                return (char)this.GetValue(CryptogramCharacter.SolutionLetterProperty);
+            }
+            set
+            {
+                this.SetValue(CryptogramCharacter.SolutionLetterProperty, value);
             }
         }
 
@@ -91,7 +104,7 @@ namespace DeCipher
             char character;
             if (this.keyToChar.TryGetValue(e.Key, out character))
             {
-                this.SolutionCharacter = character;
+                this.SolutionLetter = character;
             }
         }
     }

@@ -17,7 +17,7 @@
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
     <StackPanel Orientation="Vertical" x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock x:Name="cryptogramCharacter" Text="M" FontSize="24" FontFamily="Consolas"/>
-        <TextBlock x:Name="solutionCharacter" Text="{Binding Path=SolutionCharacter}" FontSize="24" FontFamily="Consolas"/>
+        <TextBlock x:Name="cryptogramCharacter" Text="{Binding Path=CryptogramLetter}" FontSize="24" FontFamily="Consolas"/>
+        <TextBlock x:Name="solutionCharacter" Text="{Binding Path=SolutionLetter}" FontSize="24" FontFamily="Consolas"/>
     </StackPanel>
 </UserControl>
