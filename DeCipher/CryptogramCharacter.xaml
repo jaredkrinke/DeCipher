@@ -15,13 +15,8 @@
     LostFocus="UserControl_LostFocus"
     KeyDown="UserControl_KeyDown">
     
-    <Grid x:Name="grid">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <TextBlock x:Name="cryptogramCharacter" Grid.Row="0" Text="M" FontSize="24" FontFamily="Consolas"/>
-        <TextBlock x:Name="solutionCharacter" Grid.Row="1" Text=" " FontSize="24" FontFamily="Consolas"/>
-    </Grid>
+    <StackPanel Orientation="Vertical" x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock x:Name="cryptogramCharacter" Text="M" FontSize="24" FontFamily="Consolas"/>
+        <TextBlock x:Name="solutionCharacter" Text=" " FontSize="24" FontFamily="Consolas"/>
+    </StackPanel>
 </UserControl>
