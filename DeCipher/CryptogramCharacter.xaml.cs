@@ -13,11 +13,19 @@ namespace DeCipher
 {
     public sealed partial class CryptogramCharacter : UserControl
     {
-        // Prototype for event handlers for when the selected letter changes
-        public delegate void SolutionCharacterChangedEventHandler(object sender, CryptogramCharacter.SolutionCharacterChangedEventArgs args);
+        public static readonly DependencyProperty SolutionCharacterProperty = DependencyProperty.Register("SolutionCharacter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(' '));
 
-        // Event that can be subscribed to that fires when the selected letter changes
-        public event SolutionCharacterChangedEventHandler SolutionCharacterChanged;
+        public char SolutionCharacter
+        {
+            get
+            {
+                return (char)this.GetValue(CryptogramCharacter.SolutionCharacterProperty);
+            }
+            set
+            {
+                this.SetValue(CryptogramCharacter.SolutionCharacterProperty, value);
+            }
+        }
 
         // Dictionary to map key presses (VirtualKey) to letters (Char)
         private Dictionary<VirtualKey, char> keyToChar;
@@ -54,9 +62,6 @@ namespace DeCipher
             this.keyToChar[VirtualKey.X] = 'X';
             this.keyToChar[VirtualKey.Y] = 'Y';
             this.keyToChar[VirtualKey.Z] = 'Z';
-
-            // Setup event handler to update the letter shown in the UI when the selected character changes
-            this.SolutionCharacterChanged += new SolutionCharacterChangedEventHandler(this.UserControl_SolutionCharacterChanged);
         }
 
         private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
@@ -86,24 +91,7 @@ namespace DeCipher
             char character;
             if (this.keyToChar.TryGetValue(e.Key, out character))
             {
-                this.SolutionCharacterChanged(this, new CryptogramCharacter.SolutionCharacterChangedEventArgs(character));
-            }
-        }
-
-        private void UserControl_SolutionCharacterChanged(object sender, SolutionCharacterChangedEventArgs args)
-        {
-            // When the letter changes, update the UI
-            this.solutionCharacter.Text = args.SolutionCharacter.ToString();
-        }
-
-        // Event arguments for when the selected letter changes
-        public class SolutionCharacterChangedEventArgs : EventArgs
-        {
-            public char SolutionCharacter { get; private set; }
-
-            public SolutionCharacterChangedEventArgs(char c)
-            {
-                this.SolutionCharacter = c;
+                this.SolutionCharacter = character;
             }
         }
     }
