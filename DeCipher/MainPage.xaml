@@ -29,7 +29,16 @@
         <TextBlock x:Name="dcode6" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="Try to find a reoccuring three letter word, could that word be THE ?          " />
         <TextBlock x:Name="ciphr7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="If you see a three letter word following a comma, could that word be AND ?    " />
         <TextBlock x:Name="dcode7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="The word THAT occurs pretty often and can be spoted by same 1st and 4th letter" />
+        
         <!-- TODO: Just testing this out... -->
-        <local:CryptogramCharacter/>
+        <TextBlock Text="-------------" FontSize="24" FontFamily="Consolas"/>
+        <TextBlock Text="Space for testing out the custom control:" FontSize="24" FontFamily="Consolas"/>
+        <StackPanel Orientation="Horizontal">
+            <local:CryptogramCharacter/>
+            <local:CryptogramCharacter/>
+            <local:CryptogramCharacter/>
+            <local:CryptogramCharacter/>
+            <local:CryptogramCharacter/>
+        </StackPanel>
     </StackPanel>
 </Page>
