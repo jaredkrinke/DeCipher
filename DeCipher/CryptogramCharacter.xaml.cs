@@ -20,8 +20,14 @@ namespace DeCipher
         private const char emptyLetter = '\0';
 
         // These dependency properties expose the cryptogram/solution letters to XAML's data binding mechanism
+        // TODO: The cryptogram letter probably doesn't need to be a dependency property since it doesn't change
         public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
-        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter));
+        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter, CryptogramCharacter.DispatchSolutionLetterChanged));
+
+        // Dictionary to map key presses (VirtualKey) to letters (Char)
+        private static Dictionary<VirtualKey, char> keyToChar;
+
+        public event EventHandler SolutionLetterChanged;
 
         // These C# properties just call into the XAML dependency property infrastructure (GetValue/SetValue) so that
         // the types can be conveniently accessed from C# code
@@ -48,9 +54,6 @@ namespace DeCipher
                 this.SetValue(CryptogramCharacter.SolutionLetterProperty, value);
             }
         }
-
-        // Dictionary to map key presses (VirtualKey) to letters (Char)
-        private static Dictionary<VirtualKey, char> keyToChar;
 
         static CryptogramCharacter()
         {
@@ -111,6 +114,20 @@ namespace DeCipher
 
                 // Make it so that this non-letter character can't get focus
                 this.IsTabStop = false;
+            }
+        }
+
+        private static void DispatchSolutionLetterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((CryptogramCharacter)d).OnSolutionLetterChanged();
+        }
+
+        public void OnSolutionLetterChanged()
+        {
+            // TODO: Should this support deleting the solution letter? Right now it doesn't
+            if (this.SolutionLetterChanged != null && Char.IsLetter(this.CryptogramLetter) && Char.IsLetter(this.SolutionLetter))
+            {
+                this.SolutionLetterChanged(this, null);
             }
         }
 
