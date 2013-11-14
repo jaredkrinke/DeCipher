@@ -13,8 +13,11 @@ namespace DeCipher
 {
     public sealed partial class CryptogramCharacter : UserControl
     {
+        // Use a non-breaking space so that the white space is preserved
+        private const char emptyLetter = '\u00a0';
+
         public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
-        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('\u00a0'));
+        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter));
 
         public char CryptogramLetter
         {
@@ -41,42 +44,45 @@ namespace DeCipher
         }
 
         // Dictionary to map key presses (VirtualKey) to letters (Char)
-        private Dictionary<VirtualKey, char> keyToChar;
+        private static Dictionary<VirtualKey, char> keyToChar;
+
+        static CryptogramCharacter()
+        {
+            // Set up mapping from VirtualKey enum to Char
+            CryptogramCharacter.keyToChar = new Dictionary<VirtualKey, char>();
+            CryptogramCharacter.keyToChar[VirtualKey.A] = 'A';
+            CryptogramCharacter.keyToChar[VirtualKey.B] = 'B';
+            CryptogramCharacter.keyToChar[VirtualKey.C] = 'C';
+            CryptogramCharacter.keyToChar[VirtualKey.D] = 'D';
+            CryptogramCharacter.keyToChar[VirtualKey.E] = 'E';
+            CryptogramCharacter.keyToChar[VirtualKey.F] = 'F';
+            CryptogramCharacter.keyToChar[VirtualKey.G] = 'G';
+            CryptogramCharacter.keyToChar[VirtualKey.H] = 'H';
+            CryptogramCharacter.keyToChar[VirtualKey.I] = 'I';
+            CryptogramCharacter.keyToChar[VirtualKey.J] = 'J';
+            CryptogramCharacter.keyToChar[VirtualKey.K] = 'K';
+            CryptogramCharacter.keyToChar[VirtualKey.L] = 'L';
+            CryptogramCharacter.keyToChar[VirtualKey.M] = 'M';
+            CryptogramCharacter.keyToChar[VirtualKey.N] = 'N';
+            CryptogramCharacter.keyToChar[VirtualKey.O] = 'O';
+            CryptogramCharacter.keyToChar[VirtualKey.P] = 'P';
+            CryptogramCharacter.keyToChar[VirtualKey.Q] = 'Q';
+            CryptogramCharacter.keyToChar[VirtualKey.R] = 'R';
+            CryptogramCharacter.keyToChar[VirtualKey.S] = 'S';
+            CryptogramCharacter.keyToChar[VirtualKey.T] = 'T';
+            CryptogramCharacter.keyToChar[VirtualKey.U] = 'U';
+            CryptogramCharacter.keyToChar[VirtualKey.V] = 'V';
+            CryptogramCharacter.keyToChar[VirtualKey.W] = 'W';
+            CryptogramCharacter.keyToChar[VirtualKey.X] = 'X';
+            CryptogramCharacter.keyToChar[VirtualKey.Y] = 'Y';
+            CryptogramCharacter.keyToChar[VirtualKey.Z] = 'Z';
+        }
 
         public CryptogramCharacter(char cryptogramLetter)
         {
             this.InitializeComponent();
 
             this.CryptogramLetter = cryptogramLetter;
-
-            // Set up mapping from VirtualKey enum to Char
-            this.keyToChar = new Dictionary<VirtualKey, char>();
-            this.keyToChar[VirtualKey.A] = 'A';
-            this.keyToChar[VirtualKey.B] = 'B';
-            this.keyToChar[VirtualKey.C] = 'C';
-            this.keyToChar[VirtualKey.D] = 'D';
-            this.keyToChar[VirtualKey.E] = 'E';
-            this.keyToChar[VirtualKey.F] = 'F';
-            this.keyToChar[VirtualKey.G] = 'G';
-            this.keyToChar[VirtualKey.H] = 'H';
-            this.keyToChar[VirtualKey.I] = 'I';
-            this.keyToChar[VirtualKey.J] = 'J';
-            this.keyToChar[VirtualKey.K] = 'K';
-            this.keyToChar[VirtualKey.L] = 'L';
-            this.keyToChar[VirtualKey.M] = 'M';
-            this.keyToChar[VirtualKey.N] = 'N';
-            this.keyToChar[VirtualKey.O] = 'O';
-            this.keyToChar[VirtualKey.P] = 'P';
-            this.keyToChar[VirtualKey.Q] = 'Q';
-            this.keyToChar[VirtualKey.R] = 'R';
-            this.keyToChar[VirtualKey.S] = 'S';
-            this.keyToChar[VirtualKey.T] = 'T';
-            this.keyToChar[VirtualKey.U] = 'U';
-            this.keyToChar[VirtualKey.V] = 'V';
-            this.keyToChar[VirtualKey.W] = 'W';
-            this.keyToChar[VirtualKey.X] = 'X';
-            this.keyToChar[VirtualKey.Y] = 'Y';
-            this.keyToChar[VirtualKey.Z] = 'Z';
         }
 
         private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
@@ -104,9 +110,22 @@ namespace DeCipher
         {
             // Map the key to a character and raise an event to say the letter changed
             char character;
-            if (this.keyToChar.TryGetValue(e.Key, out character))
+            if (CryptogramCharacter.keyToChar.TryGetValue(e.Key, out character))
             {
                 this.SolutionLetter = character;
+            }
+            else
+            {
+                // Handle a few other keys specially
+                switch (e.Key)
+                {
+                    case VirtualKey.Delete:
+                    case VirtualKey.Back:
+                    case VirtualKey.Clear:
+                        // Set this letter back to the "empty" state
+                        this.SolutionLetter = CryptogramCharacter.emptyLetter;
+                        break;
+                }
             }
         }
     }
