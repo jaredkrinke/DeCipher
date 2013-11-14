@@ -25,7 +25,7 @@
         <!-- These text blocks using a Binding that references a dependency property defined in the C# code. Note that
              the TextBlocks know which object implements these properties because of the DataContext attribute defined
              on UserControl up above; it says to access properties on the control (CryptogramCharacter) itself. -->
-        <TextBlock x:Name="cryptogramCharacter" Text="{Binding Path=CryptogramLetter}" FontSize="24" FontFamily="Consolas"/>
+        <TextBlock x:Name="cryptogramCharacter" FontSize="24" FontFamily="Consolas"/>
         <TextBlock x:Name="solutionCharacter" Text="{Binding Path=SolutionLetter}" FontSize="24" FontFamily="Consolas"/>
     </StackPanel>
 </UserControl>

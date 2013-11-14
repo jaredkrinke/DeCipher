@@ -20,8 +20,6 @@ namespace DeCipher
         private const char emptyLetter = '\0';
 
         // These dependency properties expose the cryptogram/solution letters to XAML's data binding mechanism
-        // TODO: The cryptogram letter probably doesn't need to be a dependency property since it doesn't change
-        public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
         public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter));
 
         // Dictionary to map key presses (VirtualKey) to letters (Char)
@@ -31,17 +29,7 @@ namespace DeCipher
 
         // These C# properties just call into the XAML dependency property infrastructure (GetValue/SetValue) so that
         // the types can be conveniently accessed from C# code
-        public char CryptogramLetter
-        {
-            get
-            {
-                return (char)this.GetValue(CryptogramCharacter.CryptogramLetterProperty);
-            }
-            set
-            {
-                this.SetValue(CryptogramCharacter.CryptogramLetterProperty, value);
-            }
-        }
+        public char CryptogramLetter { get; private set; }
 
         public char SolutionLetter
         {
@@ -115,6 +103,8 @@ namespace DeCipher
                 // Make it so that this non-letter character can't get focus
                 this.IsTabStop = false;
             }
+
+            this.cryptogramCharacter.Text = this.CryptogramLetter.ToString();
         }
 
         public void OnSolutionLetterChanged()
