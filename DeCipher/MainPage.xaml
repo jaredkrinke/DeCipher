@@ -7,34 +7,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="button" Content="Display Cipher" FontSize="24" Click="buttonClick" />
-        <TextBlock x:Name="subab"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="A->B"/>
-        <TextBox   x:Name="subAB"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="A B" />
-        <TextBlock x:Name="alpha"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              "/>
-        <TextBlock x:Name="count"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="On program initialization, a quote was selected at random from the quote      " />
-        <TextBlock x:Name="ciphr0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="database and a simple substitution cipher was defined.                        " />
-        <TextBlock x:Name="dcode0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              " />
-        <TextBlock x:Name="ciphr1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="When you click the Display Cipher button, this help screen will disappear     " />
-        <TextBlock x:Name="dcode1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="and the enciphered quote will be displayed, along with letter frequency count." />
-        <TextBlock x:Name="ciphr2" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="When the Cipher is displayed, the button is relabeled: Substitute B for A     " />
-        <TextBlock x:Name="dcode2" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="Enter two letters into the A->B text box in the format A blank B, uppercase or" />
-        <TextBlock x:Name="ciphr3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="lowercase. Then click on the Substitute B for A button. The page will         " />
-        <TextBlock x:Name="dcode3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="redisplay with B displayed underneath every A in the cipher.                  " />
-        <TextBlock x:Name="ciphr4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="As you make letter substitution guesses, do you see plaintext words           " />
-        <TextBlock x:Name="dcode4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="starting to appear?                                                           " />
-        <TextBlock x:Name="ciphr5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              " />
-        <TextBlock x:Name="dcode5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="HINT: Look over the cipher and the letter frequency count.                    " />
-        <TextBlock x:Name="ciphr6" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="It is likely that that highest frequency letters are E T O or N.              " />
-        <TextBlock x:Name="dcode6" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="Try to find a reoccuring three letter word, could that word be THE ?          " />
-        <TextBlock x:Name="ciphr7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="If you see a three letter word following a comma, could that word be AND ?    " />
-        <TextBlock x:Name="dcode7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="The word THAT occurs pretty often and can be spoted by same 1st and 4th letter" />
+    <Border Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Padding="40">
+        <StackPanel Orientation="Vertical" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="button" Margin="100,0,0,0" Content="Display Cipher" FontSize="24" Click="buttonClick" />
+                <TextBlock x:Name="subab" Margin="20,0,0,0" FontSize="24" FontFamily="Consolas" Text="A->B"/>
+                <TextBox   x:Name="subAB" Margin="20,0,0,0" FontSize="24" FontFamily="Consolas" Text="A B" />
+            </StackPanel>
+            <TextBlock x:Name="alpha"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              "/>
+            <TextBlock x:Name="count"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="On program initialization, a quote was selected at random from the quote      " />
+            <TextBlock x:Name="ciphr0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="database and a simple substitution cipher was defined.                        " />
+            <TextBlock x:Name="dcode0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              " />
+            <TextBlock x:Name="ciphr1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="When you click the Display Cipher button, this help screen will disappear     " />
+            <TextBlock x:Name="dcode1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="and the enciphered quote will be displayed, along with letter frequency count." />
+            <TextBlock x:Name="ciphr2" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="When the Cipher is displayed, the button is relabeled: Substitute B for A     " />
+            <TextBlock x:Name="dcode2" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="Enter two letters into the A->B text box in the format A blank B, uppercase or" />
+            <TextBlock x:Name="ciphr3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="lowercase. Then click on the Substitute B for A button. The page will         " />
+            <TextBlock x:Name="dcode3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="redisplay with B displayed underneath every A in the cipher.                  " />
+            <TextBlock x:Name="ciphr4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="As you make letter substitution guesses, do you see plaintext words           " />
+            <TextBlock x:Name="dcode4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="starting to appear?                                                           " />
+            <TextBlock x:Name="ciphr5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              " />
+            <TextBlock x:Name="dcode5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="HINT: Look over the cipher and the letter frequency count.                    " />
+            <TextBlock x:Name="ciphr6" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="It is likely that that highest frequency letters are E T O or N.              " />
+            <TextBlock x:Name="dcode6" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="Try to find a reoccuring three letter word, could that word be THE ?          " />
+            <TextBlock x:Name="ciphr7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="If you see a three letter word following a comma, could that word be AND ?    " />
+            <TextBlock x:Name="dcode7" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="The word THAT occurs pretty often and can be spoted by same 1st and 4th letter" />
         
-        <!-- TODO: Just testing this out... -->
-        <TextBlock Text="-------------" FontSize="24" FontFamily="Consolas"/>
-        <TextBlock Text="Space for testing out the custom control:" FontSize="24" FontFamily="Consolas"/>
+            <!-- TODO: Just testing this out... -->
+            <TextBlock Text="-------------" FontSize="24" FontFamily="Consolas"/>
+            <TextBlock Text="Space for testing out the custom control:" FontSize="24" FontFamily="Consolas"/>
         
-        <!-- This StackPanel has a name so that I can programtically add controls to it -->
-        <StackPanel x:Name="cryptogramLines"  Orientation="Vertical"/>
-    </StackPanel>
+            <!-- This StackPanel has a name so that I can programtically add controls to it -->
+            <StackPanel x:Name="cryptogramLines"  Orientation="Vertical"/>
+        </StackPanel>
+    </Border>
 </Page>
