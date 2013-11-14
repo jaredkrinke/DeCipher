@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -88,15 +89,28 @@ namespace DeCipher
             this.InitializeComponent();
 
             // Set the cryptogram letter accordingly
-            if (cryptogramLetter == ' ')
+            if (Char.IsLetter(cryptogramLetter))
             {
-                // Handle spaces specially; we want to use a non-breaking space so that the whitespace isn't simply
-                // discarded
-                this.CryptogramLetter = CryptogramCharacter.spaceLetter;
+                this.CryptogramLetter = cryptogramLetter;
             }
             else
             {
-                this.CryptogramLetter = cryptogramLetter;
+                if (cryptogramLetter == ' ')
+                {
+                    // Handle spaces specially; we want to use a non-breaking space so that the whitespace isn't simply
+                    // discarded
+                    this.CryptogramLetter = CryptogramCharacter.spaceLetter;
+                }
+                else
+                {
+                    this.CryptogramLetter = cryptogramLetter;
+                }
+
+                // Pass non-letters through to the solution
+                this.SolutionLetter = this.CryptogramLetter;
+
+                // Make it so that this non-letter character can't get focus
+                this.IsTabStop = false;
             }
         }
 
