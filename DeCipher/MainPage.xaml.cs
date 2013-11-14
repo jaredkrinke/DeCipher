@@ -68,6 +68,7 @@ namespace DeCipher
                     // Create a horizontal StackPanel for this new line
                     cryptogramLine = new StackPanel();
                     cryptogramLine.Orientation = Orientation.Horizontal;
+                    cryptogramLine.Margin = new Thickness(0, 0, 0, 10);
                     this.cryptogramLines.Children.Add(cryptogramLine);
                 }
 
