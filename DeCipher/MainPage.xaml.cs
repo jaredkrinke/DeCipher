@@ -27,32 +27,36 @@ namespace DeCipher
         string dcod = "                          ";
         string win = "YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN ";
 
-        private const int columns = 40;
+        private const int columns = 79;
 
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void DisplayCryptogram()
         {
+            // Hide the help text
+            this.helpText.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
             // Create cryptogram character controls programmatically and add them as children to the "cryptogramLines"
             // StackPanel defined in the XAML file
-            string text = "THIS IS A TEST MESSAGE THAT IS LONG ENOUGH THAT WE HAVE TO WRAP AROUND (BECAUSE IT'S MORE THAN FORTY COLUMNS LONG)";
             this.cryptogramLines.Children.Clear();
             int columnIndex = 0;
             StackPanel cryptogramLine = null;
+            string text = String.Join("\n", this.encipherQuote(this.quote, this.code));
 
             foreach (char c in text)
             {
                 // TODO: Wrap at word boundaries or insert a hyphen
-                if (columnIndex >= MainPage.columns)
+                if (columnIndex >= MainPage.columns || c == '\n')
                 {
                     columnIndex = 0;
                 }
 
                 if (columnIndex == 0)
                 {
+                    // TODO: For some reason there is tons of padding getting added; fix this
                     cryptogramLine = new StackPanel();
                     cryptogramLine.Orientation = Orientation.Horizontal;
                     this.cryptogramLines.Children.Add(cryptogramLine);
@@ -77,7 +81,10 @@ namespace DeCipher
             string alphText = showAlph(alph);
             string cntText = showCnt(cnt);
             //
-            if (String.Equals(button.Content, "Display Cipher")) { }
+            if (String.Equals(button.Content, "Display Cipher"))
+            {
+                this.DisplayCryptogram();
+            }
             else
             {
                 string a2b = subAB.Text;
