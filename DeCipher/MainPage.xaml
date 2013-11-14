@@ -33,6 +33,8 @@
         <!-- TODO: Just testing this out... -->
         <TextBlock Text="-------------" FontSize="24" FontFamily="Consolas"/>
         <TextBlock Text="Space for testing out the custom control:" FontSize="24" FontFamily="Consolas"/>
+        
+        <!-- This StackPanel has a name so that I can programtically add controls to it -->
         <StackPanel x:Name="cryptogramLines"  Orientation="Vertical"/>
     </StackPanel>
 </Page>

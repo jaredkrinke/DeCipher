@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -14,11 +13,17 @@ namespace DeCipher
     public sealed partial class CryptogramCharacter : UserControl
     {
         // Use a non-breaking space so that the white space is preserved
-        private const char emptyLetter = '\u00a0';
+        private const char spaceLetter = '\u00a0';
 
+        // Use a null character to represent a letter that has not been mapped in the cryptogram
+        private const char emptyLetter = '\0';
+
+        // These dependency properties expose the cryptogram/solution letters to XAML's data binding mechanism
         public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
         public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter));
 
+        // These C# properties just call into the XAML dependency property infrastructure (GetValue/SetValue) so that
+        // the types can be conveniently accessed from C# code
         public char CryptogramLetter
         {
             get
@@ -82,7 +87,17 @@ namespace DeCipher
         {
             this.InitializeComponent();
 
-            this.CryptogramLetter = cryptogramLetter;
+            // Set the cryptogram letter accordingly
+            if (cryptogramLetter == ' ')
+            {
+                // Handle spaces specially; we want to use a non-breaking space so that the whitespace isn't simply
+                // discarded
+                this.CryptogramLetter = CryptogramCharacter.spaceLetter;
+            }
+            else
+            {
+                this.CryptogramLetter = cryptogramLetter;
+            }
         }
 
         private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
@@ -108,7 +123,7 @@ namespace DeCipher
         // TODO: Handle touch-only input as well (e.g. pop up the touch keyboard)
         private void UserControl_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            // Map the key to a character and raise an event to say the letter changed
+            // Map the key to a character and set the solution letter appropriately
             char character;
             if (CryptogramCharacter.keyToChar.TryGetValue(e.Key, out character))
             {
@@ -116,7 +131,7 @@ namespace DeCipher
             }
             else
             {
-                // Handle a few other keys specially
+                // Handle a few non-letter keys specially
                 switch (e.Key)
                 {
                     case VirtualKey.Delete:

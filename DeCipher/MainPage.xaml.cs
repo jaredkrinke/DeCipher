@@ -36,7 +36,8 @@ namespace DeCipher
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // Create cryptogram character controls programmatically
+            // Create cryptogram character controls programmatically and add them as children to the "cryptogramLines"
+            // StackPanel defined in the XAML file
             string text = "THIS IS A TEST MESSAGE THAT IS LONG ENOUGH THAT WE HAVE TO WRAP AROUND (BECAUSE IT'S MORE THAN FORTY COLUMNS LONG)";
             this.cryptogramLines.Children.Clear();
             int columnIndex = 0;
