@@ -27,6 +27,8 @@ namespace DeCipher
         string dcod = "                          ";
         string win = "YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN - YOU WIN ";
 
+        private const int columns = 40;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -34,7 +36,32 @@ namespace DeCipher
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Create cryptogram character controls programmatically
+            string text = "THIS IS A TEST MESSAGE THAT IS LONG ENOUGH THAT WE HAVE TO WRAP AROUND (BECAUSE IT'S MORE THAN FORTY COLUMNS LONG)";
+            this.cryptogramLines.Children.Clear();
+            int columnIndex = 0;
+            StackPanel cryptogramLine = null;
+
+            foreach (char c in text)
+            {
+                // TODO: Wrap at word boundaries or insert a hyphen
+                if (columnIndex >= MainPage.columns)
+                {
+                    columnIndex = 0;
+                }
+
+                if (columnIndex == 0)
+                {
+                    cryptogramLine = new StackPanel();
+                    cryptogramLine.Orientation = Orientation.Horizontal;
+                    this.cryptogramLines.Children.Add(cryptogramLine);
+                }
+
+                cryptogramLine.Children.Add(new CryptogramCharacter(c));
+                ++columnIndex;
+            }
         }
+
         // This method is called by a button click 
         // On first click, a quote is selected at random from the quote database, 
         // that quote is enciphered into ciphr and displayed. 

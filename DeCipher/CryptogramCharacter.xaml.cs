@@ -14,7 +14,7 @@ namespace DeCipher
     public sealed partial class CryptogramCharacter : UserControl
     {
         public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
-        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(' '));
+        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('\u00a0'));
 
         public char CryptogramLetter
         {
@@ -43,9 +43,11 @@ namespace DeCipher
         // Dictionary to map key presses (VirtualKey) to letters (Char)
         private Dictionary<VirtualKey, char> keyToChar;
 
-        public CryptogramCharacter()
+        public CryptogramCharacter(char cryptogramLetter)
         {
             this.InitializeComponent();
+
+            this.CryptogramLetter = cryptogramLetter;
 
             // Set up mapping from VirtualKey enum to Char
             this.keyToChar = new Dictionary<VirtualKey, char>();
