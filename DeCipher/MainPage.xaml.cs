@@ -48,15 +48,20 @@ namespace DeCipher
 
             foreach (char c in text)
             {
+                if (c == '\n')
+                {
+                    columnIndex = 0;
+                    continue;
+                }
+
                 // TODO: Wrap at word boundaries or insert a hyphen
-                if (columnIndex >= MainPage.columns || c == '\n')
+                if (columnIndex >= MainPage.columns)
                 {
                     columnIndex = 0;
                 }
 
                 if (columnIndex == 0)
                 {
-                    // TODO: For some reason there is tons of padding getting added; fix this
                     cryptogramLine = new StackPanel();
                     cryptogramLine.Orientation = Orientation.Horizontal;
                     this.cryptogramLines.Children.Add(cryptogramLine);
