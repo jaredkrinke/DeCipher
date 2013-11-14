@@ -9,11 +9,7 @@
 
     <Border Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Padding="40">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="button" Margin="100,0,0,0" Content="Display Cipher" FontSize="24" Click="buttonClick" />
-                <TextBlock x:Name="subab" Margin="20,0,0,0" FontSize="24" FontFamily="Consolas" Text="A->B"/>
-                <TextBox   x:Name="subAB" Margin="20,0,0,0" FontSize="24" FontFamily="Consolas" Text="A B" />
-            </StackPanel>
+            <Button x:Name="button" Margin="100,0,0,0" Content="Display Cipher" FontSize="24" Click="buttonClick" />
             <TextBlock x:Name="alpha"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="                                                                              "/>
             <TextBlock x:Name="count"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontFamily="Consolas" Text="On program initialization, a quote was selected at random from the quote      " />
             <StackPanel x:Name="helpText">

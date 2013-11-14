@@ -29,6 +29,8 @@ namespace DeCipher
 
         private const int columns = 79;
 
+        private List<CryptogramCharacter> cryptogramCharacters = new List<CryptogramCharacter>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -48,6 +50,7 @@ namespace DeCipher
 
             foreach (char c in text)
             {
+                // Handle new lines
                 if (c == '\n')
                 {
                     columnIndex = 0;
@@ -62,13 +65,36 @@ namespace DeCipher
 
                 if (columnIndex == 0)
                 {
+                    // Create a horizontal StackPanel for this new line
                     cryptogramLine = new StackPanel();
                     cryptogramLine.Orientation = Orientation.Horizontal;
                     this.cryptogramLines.Children.Add(cryptogramLine);
                 }
 
-                cryptogramLine.Children.Add(new CryptogramCharacter(c));
+                // Create the control for this character
+                CryptogramCharacter cryptogramCharacter = new CryptogramCharacter(c);
+                cryptogramCharacter.SolutionLetterChanged += new EventHandler(this.HandleSolutionLetterChanged);
+                this.cryptogramCharacters.Add(cryptogramCharacter);
+                cryptogramLine.Children.Add(cryptogramCharacter);
                 ++columnIndex;
+            }
+        }
+
+        private void HandleSolutionLetterChanged(object sender, EventArgs e)
+        {
+            CryptogramCharacter cryptogramCharacter = (CryptogramCharacter)sender;
+            this.subBwhereAoccurs(this.dcod, String.Format("{0} {1}", cryptogramCharacter.CryptogramLetter, cryptogramCharacter.SolutionLetter));
+        }
+
+        private void UpdateCryptogramCharacters(char cryptogramLetter, char solutionLetter)
+        {
+            // Loop through the controls and update the ones that have the same cryptogram letter
+            foreach (CryptogramCharacter cryptogramCharacter in this.cryptogramCharacters)
+            {
+                if (cryptogramCharacter.CryptogramLetter == cryptogramLetter)
+                {
+                    cryptogramCharacter.SolutionLetter = solutionLetter;
+                }
             }
         }
 
@@ -89,22 +115,9 @@ namespace DeCipher
             if (String.Equals(button.Content, "Display Cipher"))
             {
                 this.DisplayCryptogram();
+                this.button.IsEnabled = false;
             }
-            else
-            {
-                string a2b = subAB.Text;
-                string dcod2 = subBwhereAoccurs(dcod, a2b);
-                dcod = dcod2;
-            }
-            dcode = showDcode(ciphr, dcod);
-            displayOutput(ciphr, dcode);
-            button.Content = "Substitute B for A";
 
-            if (haveIWonYet(quote, dcode))
-            {
-                alphText = win;
-                cntText = "";
-            }
             alpha.Text = alphText;
             count.Text = cntText;
         }
@@ -123,8 +136,6 @@ namespace DeCipher
             {
 
                 button.Content = "EXIT";
-                subab.Text = "";
-                subAB.Text = "";
                 val = true;
             }
             return val;
@@ -171,15 +182,10 @@ namespace DeCipher
             return dcode;
         }
 
-        private string subBwhereAoccurs(string dcod, string a2b)
+        private void subBwhereAoccurs(string dcod, string a2b)
         {
             // throw new NotImplementedException();
             string dcod2 = "";
-            if (a2b.Length != 3)
-            {
-                dcod2 = dcod;
-                return dcod2;
-            }
             char cA = Char.ToUpper(a2b[0]);
             char cB = Char.ToUpper(a2b[2]);
             int ia = alph.IndexOf(cA);  // I need some more error checking here, what if the three
@@ -188,7 +194,16 @@ namespace DeCipher
             if (ia > 0) s1 = dcod.Substring(0, ia);
             string s2 = dcod.Substring(ia + 1, nalph - 1 - s1.Length);
             dcod2 = s1 + cB + s2;
-            return dcod2;
+
+            this.dcod = dcod2;
+            this.UpdateCryptogramCharacters(cA, cB);
+
+            string[] ciphr = encipherQuote(quote, code);
+            if (haveIWonYet(quote, showDcode(ciphr, this.dcod)))
+            {
+                this.alpha.Text = win;
+                this.count.Text = "";
+            }
         }
 
         private string showCnt(int[] cnt)
@@ -350,7 +365,6 @@ namespace DeCipher
             string code = "";
             bool[] used; used = new bool[nalph];
             Random rnd = new Random();
-            double x;
 
             for (int i = 0; i < nalph; i++)
             {

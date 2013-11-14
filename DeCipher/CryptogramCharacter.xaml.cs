@@ -22,7 +22,7 @@ namespace DeCipher
         // These dependency properties expose the cryptogram/solution letters to XAML's data binding mechanism
         // TODO: The cryptogram letter probably doesn't need to be a dependency property since it doesn't change
         public static readonly DependencyProperty CryptogramLetterProperty = DependencyProperty.Register("CryptogramLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata('M'));
-        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter, CryptogramCharacter.DispatchSolutionLetterChanged));
+        public static readonly DependencyProperty SolutionLetterProperty = DependencyProperty.Register("SolutionLetter", typeof(char), typeof(CryptogramCharacter), new PropertyMetadata(CryptogramCharacter.emptyLetter));
 
         // Dictionary to map key presses (VirtualKey) to letters (Char)
         private static Dictionary<VirtualKey, char> keyToChar;
@@ -117,11 +117,6 @@ namespace DeCipher
             }
         }
 
-        private static void DispatchSolutionLetterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((CryptogramCharacter)d).OnSolutionLetterChanged();
-        }
-
         public void OnSolutionLetterChanged()
         {
             // TODO: Should this support deleting the solution letter? Right now it doesn't
@@ -159,20 +154,22 @@ namespace DeCipher
             if (CryptogramCharacter.keyToChar.TryGetValue(e.Key, out character))
             {
                 this.SolutionLetter = character;
+                this.OnSolutionLetterChanged();
             }
-            else
-            {
-                // Handle a few non-letter keys specially
-                switch (e.Key)
-                {
-                    case VirtualKey.Delete:
-                    case VirtualKey.Back:
-                    case VirtualKey.Clear:
-                        // Set this letter back to the "empty" state
-                        this.SolutionLetter = CryptogramCharacter.emptyLetter;
-                        break;
-                }
-            }
+            // TODO: Support clearing characters elsewhere
+            //else
+            //{
+            //    // Handle a few non-letter keys specially
+            //    switch (e.Key)
+            //    {
+            //        case VirtualKey.Delete:
+            //        case VirtualKey.Back:
+            //        case VirtualKey.Clear:
+            //            // Set this letter back to the "empty" state
+            //            this.SolutionLetter = CryptogramCharacter.emptyLetter;
+            //            break;
+            //    }
+            //}
         }
     }
 }
